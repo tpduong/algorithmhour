@@ -7,8 +7,12 @@
 
 function sleepSort(unsortedArray) {
   unsortedArray.forEach(function(num) {
-    setTimeout(function() {console.log(num)}, num)
+    if(num >= 0) {
+      setTimeout(function() {console.log(num)}, num);
+    } else {
+       console.log("error: ", num);
+    }
   })
 }
 
-sleepSort([30,20,10,50]);
+sleepSort([30,20,10,50, -70, -60, 'what is this?']);
