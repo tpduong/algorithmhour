@@ -4,9 +4,11 @@
  *  Prints out x
  *  https://www.quora.com/What-is-the-strangest-sorting-algorithm
  */
-function sleepsort(unsortedArray) {
 
+function sleepSort(unsortedArray) {
+  unsortedArray.forEach(function(num) {
+    setTimeout(function() {console.log(num)}, num)
+  })
 }
 
-
-
+sleepSort([30,20,10,50]);
