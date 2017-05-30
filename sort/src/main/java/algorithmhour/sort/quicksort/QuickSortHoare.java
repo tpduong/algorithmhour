@@ -1,4 +1,7 @@
-package algorithmhour.quicksort;
+package algorithmhour.sort.quicksort;
+
+import algorithmhour.sort.util.ArrayUtils;
+import algorithmhour.sort.util.CompareUtils;
 
 /**
  * QuickSortHoare
@@ -18,22 +21,22 @@ public class QuickSortHoare<T extends Comparable<? super T>> extends QuickSort<T
      * @return
      */
     @Override
-    protected int partition(T[] arr, int lo, int hi) {
+    int partition(T[] arr, int lo, int hi) {
         T pivot = arr[lo];
         int i = lo, j = hi;
         while (true) {
-            while (arr[i].compareTo(pivot) < 0) {
+            while (CompareUtils.lt(arr[i], pivot)) {
                 i++;
             }
 
-            while(arr[j].compareTo(pivot) > 0) {
+            while(CompareUtils.gt(arr[j], pivot)) {
                 j--;
             }
 
             if (i >= j) {
                 return j;
             }
-            swap(arr, i, j);
+            ArrayUtils.swap(arr, i, j);
         }
     }
 }
