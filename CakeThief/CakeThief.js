@@ -35,6 +35,55 @@
 
  */
 
+var cakeTypes = [
+  {weight: 7, value: 160},
+  {weight: 3, value: 90},
+  {weight: 2, value: 15},
+  {weight: 0, value: 15},
+
+];
+
+var capacity = 20;
+
 function maxDuffelBagValue(cakeTypes, capacity){
   //write stuff here
+  var cakeValuePerWeight = cakeTypes.map(function(cake) {
+    return {
+      weight: cake.weight,
+      value: cake.value,
+      valuePerWeight: (cake.value && cake.weight) ? cake.value / cake.weight : 0,
+    }
+  });
+
+  cakeValuePerWeight.sort(function (a, b) {
+    if (a.valuePerWeight < b.valuePerWeight) return 1;
+    if (a.valuePerWeight > b.valuePerWeight) return -1;
+    return 0;
+  });
+
+  var totalWeight = 0
+  var bag = [];
+
+  for (var i = 0; i < cakeValuePerWeight.length ; i++) {
+    var remainingCapacity = capacity - totalWeight;
+
+    if (cakeValuePerWeight[i].weight <= remainingCapacity && cakeValuePerWeight[i].valuePerWeight !== 0) {
+      var count = Math.floor(remainingCapacity/cakeValuePerWeight[i].weight);
+      bag.push({
+        weight: cakeValuePerWeight[i].weight,
+        value: cakeValuePerWeight[i].value,
+        valuePerWeight: cakeValuePerWeight[i].valuePerWeight,
+        count: count,
+      });
+      totalWeight = totalWeight + (cakeValuePerWeight[i].weight * count);
+    }
+  }
+  console.log(bag)
+  var bagValue = bag.reduce(function(acc, item) {
+      acc += item.value * item.count;
+      return acc;
+    }, 0)
+  console.log(bagValue)
 }
+
+maxDuffelBagValue(cakeTypes, capacity)
